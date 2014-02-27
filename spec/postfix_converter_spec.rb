@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe EasyRegex::Compiler do
+describe EasyRegex::PostfixConverter do
 
-  describe '::re2post' do
+  describe '::new' do
     def create(re)
-      EasyRegex::Compiler.re2post(re)
+      EasyRegex::PostfixConverter.new(re).result
     end
 
     it 'does consider |' do
