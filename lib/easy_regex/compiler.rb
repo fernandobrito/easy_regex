@@ -11,6 +11,7 @@ module EasyRegex
     # @return [NFA] an automata
     def initialize(re)
       @postfix = PostfixConverter.new(re).result
+      @automaton = AutomatonConverter.new(@postfix).result
     end
   end
 end
