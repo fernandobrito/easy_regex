@@ -41,7 +41,7 @@ module EasyRegex
         case char
 
           when '('
-            insert_one_concatenation_symbol
+            insert_one_concatenation
 
             @contexts.push(Context.new)
 
@@ -49,8 +49,8 @@ module EasyRegex
             raise ArgumentError, 'closing never opened parenthesis' if (@contexts.first == context)
             raise ArgumentError, 'empty parenthesis group' if (context.n_atomics == 0)
 
-            flush_concatenation_symbol
-            insert_or
+            flush_concatenations
+            insert_alternation
 
             @contexts.pop
             context.n_atomics += 1
@@ -58,9 +58,9 @@ module EasyRegex
           when '|'
             raise ArgumentError, '| found, but no literals before it' if (context.n_atomics == 0)
 
-            flush_concatenation_symbol
+            flush_concatenations
 
-            context.n_or += 1
+            context.n_alternations += 1
 
           when '*', '+', '?'
             raise ArgumentError, "#{char} found, but no literals before it" if (context.n_atomics == 0)
@@ -68,7 +68,7 @@ module EasyRegex
             @output += char
 
           else
-            insert_one_concatenation_symbol
+            insert_one_concatenation
 
             @output += char
             context.n_atomics += 1
@@ -77,15 +77,15 @@ module EasyRegex
 
       raise ArgumentError, 'parenthesis group not closed' if (@contexts.first != context)
 
-      flush_concatenation_symbol
+      flush_concatenations
 
-      context.n_or.times do
+      context.n_alternations.times do
         @output += '|'
       end
     end
 
   private
-    def insert_one_concatenation_symbol
+    def insert_one_concatenation
       if (context.n_atomics > 1)
         context.n_atomics -= 1
         @output += '.'
@@ -96,14 +96,14 @@ module EasyRegex
       @contexts.last
     end
 
-    def insert_or
-      while (context.n_or > 0)
+    def insert_alternation
+      while (context.n_alternations > 0)
         @output += '|'
-        context.n_or -= 1
+        context.n_alternations -= 1
       end
     end
 
-    def flush_concatenation_symbol
+    def flush_concatenations
       context.n_atomics -= 1
 
       while (context.n_atomics > 0)
@@ -112,14 +112,14 @@ module EasyRegex
       end
 
     end
-  end
 
-  class Context
-    attr_accessor :n_atomics, :n_or
+    class Context
+      attr_accessor :n_atomics, :n_alternations
 
-    def initialize
-      @n_atomics = 0
-      @n_or = 0
+      def initialize
+        @n_atomics = 0
+        @n_alternations = 0
+      end
     end
   end
 end
