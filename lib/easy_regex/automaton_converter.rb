@@ -16,7 +16,11 @@ module EasyRegex
       # State Accepting
       @stateMatch = State.new(:match)
 
-      convert
+      @automaton = convert
+    end
+
+    def result
+      @automaton
     end
 
     def convert
@@ -34,32 +38,32 @@ module EasyRegex
             frag2 = @stack.pop()
             frag1 = @stack.pop()
 
-            s = State.new(:split, frag1, frag2)
+            s = State.new(:split, frag1.start, frag2.start)
 
             @stack.push(Fragment.new(s, frag1.out + frag2.out))
           when '?'
             frag = @stack.pop()
 
-            s = State.new(:split, frag)
+            s = State.new(:split, frag.start)
 
-            @stack.push(Fragment.new(s, frag << s))
+            @stack.push(Fragment.new(s, frag.out + [s]))
           when '*'
             frag = @stack.pop()
 
-            s = State.new(:split, frag)
+            s = State.new(:split, frag.start)
             patch(frag, s)
 
-            @stack.push(Fragment.new(s, s))
+            @stack.push(Fragment.new(s, [s]))
           when '+'
             frag = @stack.pop()
 
-            s = State.new(:split, frag)
+            s = State.new(:split, frag.start)
             patch(frag, s)
 
-            @stack.push(Fragment.new(s, s))
+            @stack.push(Fragment.new(frag.start, [s]))
           else
             s = State.new(char)
-            @stack.push(Fragment.new(s, s))
+            @stack.push(Fragment.new(s, [s]))
         end
       end
 
@@ -67,15 +71,19 @@ module EasyRegex
 
       patch(frag, @stateMatch)
 
-      return Automaton.new(frag)
+      return Automaton.new( frag )
     end #end convert
 
     ## Connect all outs(states with firstOut and secondOut equal a nil) with state
     def patch( frag, state )
       frag.out.each do |s|
-        s.firstOut = state unless s.firstOut.nil?
-        s.secondOut = state unless s.secondOut.nil? 
+        s.firstOut = state if s.firstOut.nil?
+        
+        if s.char == :split 
+          s.secondOut = state if s.secondOut.nil? 
+        end
       end
     end
+    
   end
 end

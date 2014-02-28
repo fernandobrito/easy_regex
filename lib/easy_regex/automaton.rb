@@ -24,7 +24,7 @@ module EasyRegex
 
     def initialize( start, out )
       @start = start
-      @out = []
+      @out = out
     end
 
   end
