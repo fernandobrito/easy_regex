@@ -231,6 +231,7 @@ post2nfa(char *postfix)
 		switch(*p){
 		default:
 			s = state(*p, NULL, NULL);
+
 			push(frag(s, list1(&s->out)));
 			break;
 		case '.':	/* catenate */
@@ -254,7 +255,7 @@ post2nfa(char *postfix)
 			e = pop();
 			s = state(Split, e.start, NULL);
 			patch(e.out, s);
-			push(frag(s, list1(&s->out1)));
+			push(frag(s, list1(&s->out1))); 
 			break;
 		case '+':	/* one or more */
 			e = pop();
