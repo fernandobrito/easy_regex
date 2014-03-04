@@ -30,11 +30,6 @@ module EasyRegex
       EasyRegex::logger.debug("Compiler#re2post: converted #{re} to #{@output}")
     end
 
-    # @return [String] regular expression in postfix form
-    def result
-      @output
-    end
-
     def convert
       # iterates over all characters
       @re.each_char do |char|
@@ -82,6 +77,11 @@ module EasyRegex
       context.n_alternations.times do
         @output += '|'
       end
+    end
+
+    # @return [String] regular expression in postfix form
+    def result
+      @output
     end
 
   private

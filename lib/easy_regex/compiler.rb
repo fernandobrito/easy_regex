@@ -1,3 +1,6 @@
+require "easy_regex/compiler/postfix_converter"
+require "easy_regex/compiler/automaton_converter"
+
 module EasyRegex
 
   # Compiles a string representing a regular expression into
