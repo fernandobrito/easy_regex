@@ -16,5 +16,9 @@ module EasyRegex
       @postfix = PostfixConverter.new(re).result
       @automaton = AutomatonConverter.new(@postfix).result
     end
+
+    def result
+      @automaton
+    end
   end
 end

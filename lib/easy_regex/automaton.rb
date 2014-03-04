@@ -1,6 +1,8 @@
 module EasyRegex
 
   class Automaton
+    attr_reader :initial_state
+
     def initialize(fragment)
       @initial_state = fragment.start
     end
@@ -9,7 +11,7 @@ module EasyRegex
   class State
     attr_accessor :char, :out1, :out2
 
-    ## OBS: Optional arguments with default value don't work in 
+    ## OBS: Optional arguments with default value don't work in
     ## lower ruby versions than 2.0
     def initialize(char, out1 = nil, out2 = nil)
       @char = char
