@@ -1,32 +1,30 @@
 module EasyRegex
+
   class Automaton
-
-    def initialize( frag )
-      @initialState = frag.start
+    def initialize(fragment)
+      @initial_state = fragment.start
     end
-
   end
 
   class State
-    attr_accessor :char, :firstOut, :secondOut
+    attr_accessor :char, :out1, :out2
 
     ## OBS: Optional arguments with default value don't work in 
     ## lower ruby versions than 2.0
-    def initialize( char, firstOut = nil, secondOut = nil )
+    def initialize(char, out1 = nil, out2 = nil)
       @char = char
-      @firstOut = firstOut
-      @secondOut = secondOut
+      @out1 = out1
+      @out2 = out2
     end
   end
 
   class Fragment
     attr_accessor :start, :out
 
-    def initialize( start, out )
+    def initialize(start, out)
       @start = start
       @out = out
     end
-
   end
 
 end
