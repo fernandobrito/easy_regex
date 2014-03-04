@@ -6,7 +6,7 @@ module EasyRegex
       @automaton = Compiler.new(re).result
     end
 
-    def match(string)
+    def match?(string)
       Matcher.new(@automaton, string).match?
     end
 

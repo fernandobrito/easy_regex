@@ -10,15 +10,18 @@ describe EasyRegex::Regex do
     pending '#pending'
   end
 
-  describe '#match' do
+  describe '#match?' do
 
     context 'when expression contains only concatenations' do
-      pending '#pending'
-      #let(:er) { EasyRegex::Regex.new('anderson') }
-      #
-      #it 'not return false' do
-      #  expect(er.match('andersonanderson')).not_to be_false
-      #end
+      let(:er) { EasyRegex::Regex.new('a') }
+
+      it 'return true' do
+        expect(er.match?('a')).to be_true
+      end
+
+      it 'return false' do
+        expect(er.match?('b')).to be_false
+      end
     end
 
     context 'when expression contains the operator .' do

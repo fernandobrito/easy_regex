@@ -9,7 +9,7 @@ module EasyRegex
       current_list = []
       next_list = []
 
-      current_list = @automaton.initial_state
+      current_list << @automaton.initial_state
 
       @string.each_char do |char|
         step(current_list, char, next_list)
@@ -20,8 +20,25 @@ module EasyRegex
     end
 
   private
-    def step(cl, c, nl)
+    def step(current_list, char, next_list)
+      current_list.each do |state|
+        if (state.char == char)
+          EasyRegex::logger.debug("Matcher#step: #{char} match")
 
+          add_state(next_list, state.out1)
+        else
+          EasyRegex::logger.debug("Matcher#step: #{char} does not match #{state.char}")
+        end
+      end
+    end
+
+    def add_state(list, state)
+      if (state.char == :split)
+        add_state(list, state.out1)
+        add_state(list, state.out2)
+      else
+        list.push state
+      end
     end
 
     # Iterate over the list and check if it has the match state
