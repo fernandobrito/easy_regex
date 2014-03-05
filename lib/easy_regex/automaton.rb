@@ -28,9 +28,9 @@ module EasyRegex
     end
 
     def inspect
-      output = "#{char}"
-      out = "#{out1}" if (@out1 && @out2 == nil)
-      out = "#{out1} | #{out2}" if (@out1 && @out2)
+      output = "#{@char}"
+      out = "#{@out1}" if (@out1 && @out2 == nil)
+      out = "#{@out1} | #{out2}" if (@out1 && @out2)
 
       output << " -> (#{out})" if out
 
