@@ -37,6 +37,7 @@ describe EasyRegex::Regex do
       let(:er) { EasyRegex::Regex.new('a+') }
 
       it 'return true' do
+        expect(er.match?('a')).to be_true
         expect(er.match?('aa')).to be_true
         expect(er.match?('aaa')).to be_true
         expect(er.match?('aaaa')).to be_true
@@ -44,7 +45,6 @@ describe EasyRegex::Regex do
 
       it 'return false' do
         expect(er.match?('')).to be_false
-        expect(er.match?('a')).to be_false
         expect(er.match?('ab')).to be_false
         expect(er.match?('aba')).to be_false
       end
@@ -54,12 +54,11 @@ describe EasyRegex::Regex do
       let(:er) { EasyRegex::Regex.new('a?') }
 
       it 'return true' do
+        expect(er.match?('')).to be_true
         expect(er.match?('a')).to be_true
-        expect(er.match?('aa')).to be_true
       end
 
       it 'return false' do
-        expect(er.match?('')).to be_false
         expect(er.match?('ab')).to be_false
         expect(er.match?('aba')).to be_false
       end
@@ -69,7 +68,7 @@ describe EasyRegex::Regex do
       let(:er) { EasyRegex::Regex.new('a*') }
 
       it 'return true' do
-        expect(er.match?('')).to be_false
+        expect(er.match?('')).to be_true
         expect(er.match?('a')).to be_true
         expect(er.match?('aa')).to be_true
       end
