@@ -23,6 +23,7 @@ describe EasyRegex::Regex do
       end
 
       it 'return false' do
+        expect(er.match?('')).to be_false
         expect(er.match?('b')).to be_false
         expect(er.match?('bb')).to be_false
       end
@@ -33,15 +34,50 @@ describe EasyRegex::Regex do
     end
 
     context 'when expression contains the operator +' do
-      pending '#pending'
+      let(:er) { EasyRegex::Regex.new('a+') }
+
+      it 'return true' do
+        expect(er.match?('aa')).to be_true
+        expect(er.match?('aaa')).to be_true
+        expect(er.match?('aaaa')).to be_true
+      end
+
+      it 'return false' do
+        expect(er.match?('')).to be_false
+        expect(er.match?('a')).to be_false
+        expect(er.match?('ab')).to be_false
+        expect(er.match?('aba')).to be_false
+      end
     end
 
     context 'when expression contains the operator ?' do
-      pending '#pending'
+      let(:er) { EasyRegex::Regex.new('a?') }
+
+      it 'return true' do
+        expect(er.match?('a')).to be_true
+        expect(er.match?('aa')).to be_true
+      end
+
+      it 'return false' do
+        expect(er.match?('')).to be_false
+        expect(er.match?('ab')).to be_false
+        expect(er.match?('aba')).to be_false
+      end
     end
 
     context 'when expression contains the operator *' do
-      pending '#pending'
+      let(:er) { EasyRegex::Regex.new('a*') }
+
+      it 'return true' do
+        expect(er.match?('')).to be_false
+        expect(er.match?('a')).to be_true
+        expect(er.match?('aa')).to be_true
+      end
+
+      it 'return false' do
+        expect(er.match?('ab')).to be_false
+        expect(er.match?('aba')).to be_false
+      end
     end
 
     context 'when expression contains the operator |' do
