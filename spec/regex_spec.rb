@@ -17,10 +17,14 @@ describe EasyRegex::Regex do
 
       it 'return true' do
         expect(er.match?('a')).to be_true
+        expect(er.match?('aa')).to be_true
+        expect(er.match?('ba')).to be_true
+        expect(er.match?('ab')).to be_true
       end
 
       it 'return false' do
         expect(er.match?('b')).to be_false
+        expect(er.match?('bb')).to be_false
       end
     end
 
