@@ -6,6 +6,10 @@ module EasyRegex
     def initialize(fragment)
       @initial_state = fragment.start
     end
+
+    def to_s
+      @initial_state.inspect
+    end
   end
 
   class State
@@ -17,6 +21,20 @@ module EasyRegex
       @char = char
       @out1 = out1
       @out2 = out2
+    end
+
+    def to_s
+      inspect
+    end
+
+    def inspect
+      output = "#{char}"
+      out = "#{out1}" if (out1 && out2 == nil)
+      out = "#{out1} | #{out2}" if (out1 && out2)
+
+      output << " -> (#{out})" if out
+
+      output
     end
   end
 
