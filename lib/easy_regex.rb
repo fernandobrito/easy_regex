@@ -1,8 +1,8 @@
-require "easy_regex/version"
-require "easy_regex/regex"
-require "easy_regex/compiler"
-require "easy_regex/matcher"
-require "easy_regex/automaton"
+require_relative "easy_regex/version"
+require_relative "easy_regex/regex"
+require_relative "easy_regex/compiler"
+require_relative "easy_regex/matcher"
+require_relative "easy_regex/automaton"
 
 require "logger"
 
