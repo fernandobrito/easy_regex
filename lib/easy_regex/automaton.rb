@@ -44,15 +44,20 @@ module EasyRegex
 
       if (@char != :split)
         output = "#{@char}[#{@id}]"
+      elsif (@checked) # :split and checked
+        output = "#{@out1.char}[#{@out1.id}]"
       end
 
-      out = "#{@out1}" if ( @out1 && !@out1.checked? && @out2 == nil)
-      out = "#{@out1} | #{out2}" if (@out1 && !@out1.checked? && @out2 && !@out2.checked?)
-
-      output << "#{out}" if (@char == :split && out)
-      output << " -> (#{out})" if out
+      return output if @checked || @char == :match
 
       @checked = true
+
+      out = "#{@out1}" if ( @out1 && @out2 == nil)
+      out = "(#{@out1} | #{@out2})" if (@out1 && @out2)
+
+      output << "#{out}" if (@char == :split && out)
+      output << " -> #{out}" if (@char != :split && out)
+
       output
     end
 
