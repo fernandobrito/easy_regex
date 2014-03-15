@@ -19,6 +19,10 @@ module EasyRegex
       Matcher.new(@automaton, string).match?
     end
 
+    def print_automaton
+      @automaton.to_s
+    end
+
   end
 
 end
