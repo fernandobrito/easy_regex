@@ -1,5 +1,5 @@
-require "easy_regex/compiler/postfix_converter"
-require "easy_regex/compiler/automaton_converter"
+require_relative "compiler/postfix_converter"
+require_relative "compiler/automaton_converter"
 
 module EasyRegex
 
