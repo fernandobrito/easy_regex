@@ -9,7 +9,7 @@ module EasyRegex
       current_list = []
       next_list = []
 
-      current_list << @automaton.initial_state
+      add_state(current_list, @automaton.initial_state)
 
       @string.each_char do |char|
         EasyRegex::logger.debug("Matcher#match?: current: #{current_list} | next: #{next_list}")
@@ -38,6 +38,7 @@ module EasyRegex
       if (state.char == :split)
         add_state(list, state.out1)
         add_state(list, state.out2)
+        return
       else
         EasyRegex::logger.debug("Matcher#add_state: adding #{state} to next_list")
 
