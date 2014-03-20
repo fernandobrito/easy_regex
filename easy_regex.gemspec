@@ -6,11 +6,11 @@ require 'easy_regex/version'
 Gem::Specification.new do |spec|
   spec.name          = "easy_regex"
   spec.version       = EasyRegex::VERSION
-  spec.authors       = ["Fernando Brito"]
+  spec.authors       = ["Fernando Brito, David Leite Guilherme, Jailson Junior Cunha"]
   spec.email         = ["email@fernandobrito.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{A regex engine with simplicity of code in mind. Developed for an university course.}
+  spec.summary       = %q{A regex engine with simplicity of code in mind. Developed for an university course.}
+  spec.homepage      = "https://github.com/fernandobrito/easy_regex"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
