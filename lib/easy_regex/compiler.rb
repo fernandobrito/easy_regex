@@ -4,11 +4,11 @@ require_relative "compiler/automaton_converter"
 module EasyRegex
 
   # Compiles a string representing a regular expression into
-  # an automata.
+  # an automaton.
   class Compiler
 
     # Compiles a string representing a regular expression into
-    # an automata.
+    # an automaton.
     #
     # @param re [String] the regular expression
     # @return [NFA] an automata
@@ -17,6 +17,7 @@ module EasyRegex
       @automaton = AutomatonConverter.new(@postfix).result
     end
 
+    # @return [Automaton] compiled automaton.
     def result
       @automaton
     end

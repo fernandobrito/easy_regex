@@ -19,7 +19,7 @@ module EasyRegex
       convert
     end
 
-
+    # Converts @postfix and stores result in @automaton
     def convert
       @postfix.each_char do |char|
 
@@ -76,11 +76,13 @@ module EasyRegex
       @automaton = Automaton.new(frag)
     end
 
+    # @return [Automaton] converted automaton.
     def result
       @automaton
     end
 
-    # Connect all outs(states with out1 and out2 equal a nil) with state
+  protected
+    # Connect all outs(states with out1 and out2 equal a nil) with state.
     def patch(frag, state)
       frag.out.each do |s|
         s.out1 = state if s.out1.nil?

@@ -1,10 +1,16 @@
 module EasyRegex
+
+  # Takes an automaton, a string and see if they match
   class Matcher
+
+    # @param automaton [Automaton] automaton representing the regular expression.
+    # @param string [String] string to be matched against the regular expression.
     def initialize(automaton, string)
       @automaton = automaton
       @string = string
     end
 
+    # @return [Boolean] whether the string and the regular expression matches or not.
     def match?
       current_list = []
       next_list = []

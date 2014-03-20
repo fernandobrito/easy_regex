@@ -1,13 +1,20 @@
 module EasyRegex
 
+  # Represents a NFA.
+  #
+  # In practice, it is just a pointer (initial_state) to a fragment.
   class Automaton
     attr_reader :initial_state
 
+    # @param fragment [Fragment] initial fragment of the NFA
     def initialize(fragment)
       @initial_state = fragment.start
       @cache_string = nil
     end
 
+    # @return [String] textual representation of the automaton
+    # it delegates to the method 'inspect' in the fragment and
+    # keeps a cache of it.
     def to_s
       if (@cache_string.nil?)
         @cache_string = @initial_state.inspect
@@ -17,13 +24,19 @@ module EasyRegex
     end
   end
 
+
+  # Represents a state of an NFA.
+  #
+  # It holds a 'char' and it points to at most 2 other states.
   class State
     attr_accessor :char, :out1, :out2, :id
 
+    # Shared counter used to assign unique identifiers to all states
     @@count = 0
 
-    ## OBS: Optional arguments with default value don't work in
-    ## lower ruby versions than 2.0
+    # @param char [String]
+    # @param out1 [State]
+    # @param out2 [State]
     def initialize(char, out1 = nil, out2 = nil)
       @char = char
       @out1 = out1
@@ -35,10 +48,13 @@ module EasyRegex
       @checked = false
     end
 
+    # Delegates to #inspect
     def to_s
       inspect
     end
 
+    # @return [String] textual representation of the state
+    # Calls #to_s (inspect) of out1 and out2, so it has a recursive behaviour
     def inspect
       output = ""
 
@@ -61,11 +77,13 @@ module EasyRegex
       output
     end
 
+  protected
     def checked?
       @checked
     end
   end
 
+  # Abstract representation that encapsulates an State and its outgoing arrows
   class Fragment
     attr_accessor :start, :out
 

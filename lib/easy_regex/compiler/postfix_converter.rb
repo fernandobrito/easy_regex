@@ -1,12 +1,12 @@
 module EasyRegex
 
-  # Converts a regular expression from infix fom to posfix form
+  # Converts a regular expression from infix fom to posfix form.
   class PostfixConverter
 
     # Compiles a string representing a regular expression into
-    # an automata.
+    # an automaton.
     #
-    # @param re [String] the regular expression
+    # @param re [String] the regular expression.
 
     def initialize(re)
       # Debug
@@ -30,6 +30,7 @@ module EasyRegex
       EasyRegex::logger.debug("Compiler#re2post: converted #{re} to #{@output}")
     end
 
+    # Converts @re and stores result in @output.
     def convert
       # iterates over all characters
       @re.each_char do |char|
@@ -79,7 +80,7 @@ module EasyRegex
       end
     end
 
-    # @return [String] regular expression in postfix form
+    # @return [String] regular expression in postfix form.
     def result
       @output
     end
