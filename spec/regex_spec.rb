@@ -14,23 +14,23 @@ describe EasyRegex::Regex do
 
     context 'when expression contains only concatenations' do
       let(:er) { EasyRegex::Regex.new('a') }
+      let(:er2) { EasyRegex::Regex.new('aa') }
+      let(:er3) { EasyRegex::Regex.new('ba') }
+      let(:er4) { EasyRegex::Regex.new('ab') }
 
       it 'return true' do
         expect(er.match?('a')).to be_true
-        expect(er.match?('aa')).to be_true
-        expect(er.match?('ba')).to be_true
-        expect(er.match?('ab')).to be_true
+        expect(er2.match?('aa')).to be_true
+        expect(er3.match?('ba')).to be_true
+        expect(er4.match?('ab')).to be_true
       end
 
       it 'return false' do
         expect(er.match?('')).to be_false
-        expect(er.match?('b')).to be_false
-        expect(er.match?('bb')).to be_false
+        expect(er2.match?('ab')).to be_false
+        expect(er3.match?('bb')).to be_false
+        expect(er4.match?('bb')).to be_false
       end
-    end
-
-    context 'when expression contains the operator .' do
-      pending '#pending'
     end
 
     context 'when expression contains the operator +' do
@@ -80,7 +80,20 @@ describe EasyRegex::Regex do
     end
 
     context 'when expression contains the operator |' do
-      pending '#pending'
+      let(:er) { EasyRegex::Regex.new('a|b') }
+      let(:er2) { EasyRegex::Regex.new('ferramenta|chave') }
+
+      it 'return true' do
+        expect(er.match?('a')).to be_true
+        expect(er.match?('b')).to be_true
+        expect(er2.match?('ferramenta')).to be_true
+        expect(er2.match?('chave')).to be_true
+      end
+
+      it 'return false' do
+        expect(er2.match?('chve')).to be_false
+        expect(er2.match?('ferramente')).to be_false
+      end
     end
 
     context 'when expression contains parentheses' do
@@ -89,16 +102,7 @@ describe EasyRegex::Regex do
 
   end
 
-  describe '#match?' do
-    pending '#pending'
-  end
-
-
   describe '#eql?' do
-    pending '#pending'
-  end
-
-  describe '::replace' do
     pending '#pending'
   end
 
