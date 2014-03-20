@@ -2,14 +2,6 @@ require 'spec_helper'
 
 describe EasyRegex::Regex do
 
-  describe '::new' do
-    pending '#pending'
-  end
-
-  describe '#compile' do
-    pending '#pending'
-  end
-
   describe '#match?' do
 
     context 'when expression contains only concatenations' do
@@ -91,19 +83,26 @@ describe EasyRegex::Regex do
       end
 
       it 'return false' do
+        expect(er.match?('c')).to be_false
         expect(er2.match?('chve')).to be_false
         expect(er2.match?('ferramente')).to be_false
       end
     end
 
     context 'when expression contains parentheses' do
-      pending '#pending'
+      let(:er) { EasyRegex::Regex.new('(a|b)+') }
+
+      it 'return true' do
+        expect(er.match?('aa')).to be_true
+        expect(er.match?('bb')).to be_true
+        expect(er.match?('aabb')).to be_true
+      end
+
+      it 'return false' do
+        expect(er.match?('aaxbb')).to be_false
+      end
     end
 
-  end
-
-  describe '#eql?' do
-    pending '#pending'
   end
 
 end
